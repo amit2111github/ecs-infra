@@ -21,6 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         working-directory: infra
+  
+      - name: Bootstrap CDK environment
+        run: cdk bootstrap --require-approval never
+        working-directory: infra
 
       - name: Install AWS CDK CLI
         run: npm install -g aws-cdk
