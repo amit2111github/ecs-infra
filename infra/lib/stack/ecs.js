@@ -31,8 +31,11 @@ export class EcsTask extends Stack {
     });
 
     taskDefinition.addContainer("MyContainer", {
-      image: ecs.ContainerImage.fromEcrRepository(repo, "latest"),
+      image: ecs.ContainerImage.fromEcrRepository(repo, "latest"), 
       portMappings: [{ containerPort: 4000 }],
+      logging: ecs.LogDrivers.awsLogs({
+        streamPrefix: "ecs", // Can be any name
+      }),
     });
 
     new ecs.FargateService(this, "MyService", {
