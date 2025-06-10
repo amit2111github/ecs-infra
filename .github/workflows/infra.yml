@@ -18,13 +18,9 @@ jobs:
         with:
           node-version: '18'
 
-      - name: Change directory to CDK app
-        run: cd infra && pwd
-
-      - name: Checking the Repo
-        run: |
-          pwd
-          ls
+      - name: Install dependencies
+        run: npm ci
+        working-directory: infra
 
       - name: Install AWS CDK CLI
         run: npm install -g aws-cdk
