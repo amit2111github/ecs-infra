@@ -19,7 +19,7 @@ jobs:
           node-version: '18'
 
       - name: Change directory to CDK app
-        run: cd infra
+        run: cd infra && pwd
 
       - name: Checking the Repo
         run: |
