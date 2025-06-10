@@ -35,12 +35,12 @@ export class EcsTask extends Stack {
       portMappings: [{ containerPort: 4000 }],
     });
 
-    // new ecs.FargateService(this, "MyService", {
-    //   cluster,
-    //   taskDefinition,
-    //   serviceName: "my-ecs-service",
-    //   desiredCount: 1,
-    //   assignPublicIp: true,
-    // });
+    new ecs.FargateService(this, "MyService", {
+      cluster,
+      taskDefinition,
+      serviceName: "my-ecs-service",
+      desiredCount: 1,
+      assignPublicIp: true,
+    });
   }
 }
