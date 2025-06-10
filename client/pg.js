@@ -13,4 +13,7 @@ export const pool = new Pool({
   port: POSTGRES_PORT,
   user: POSTGRES_USER,
   password: POSTGRES_PASSWORD,
+  ssl: {
+    rejectUnauthorized: false,
+  },
 });
