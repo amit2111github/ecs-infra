@@ -12,16 +12,19 @@ export class EcsTask extends Stack {
    */
   constructor(scope, id, props) {
     super(scope, id, props);
+
     const vpc = new ec2.Vpc(this, "MyVpc", { maxAzs: 2 });
+
     const cluster = new ecs.Cluster(this, "MyCluster", {
       vpc,
       clusterName: "demo-ecs-cluster",
     });
-    const repo = ecr.Repository.fromRepositoryName(
-      this,
-      "MyEcrRepo",
-      "my-ecr-repo" // Replace with your ECR repo name
-    );
+
+    // ✅ Create ECR Repository (instead of referencing existing one)
+    const repo = new ecr.Repository(this, "MyEcrRepo", {
+      repositoryName: "my-ecr-repo", // You can change this name if you like
+    });
+
     const taskDefinition = new ecs.FargateTaskDefinition(this, "MyTaskDef", {
       memoryLimitMiB: 512,
       cpu: 256,
@@ -31,13 +34,13 @@ export class EcsTask extends Stack {
       image: ecs.ContainerImage.fromEcrRepository(repo, "latest"),
       portMappings: [{ containerPort: 4000 }],
     });
-    new ecs.FargateService(this, "MyService", {
-      cluster,
-      taskDefinition,
-      serviceName: "my-ecs-service",
-      desiredCount: 1,
-      assignPublicIp: true,
-    });
+
+    // new ecs.FargateService(this, "MyService", {
+    //   cluster,
+    //   taskDefinition,
+    //   serviceName: "my-ecs-service",
+    //   desiredCount: 1,
+    //   assignPublicIp: true,
+    // });
   }
 }
-
