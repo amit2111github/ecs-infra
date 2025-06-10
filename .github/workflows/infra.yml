@@ -22,8 +22,9 @@ jobs:
         run: cd infra
 
       - name: Checking the Repo
-        run: pwd
-        run: ls
+        run: |
+          pwd
+          ls
 
       - name: Install AWS CDK CLI
         run: npm install -g aws-cdk
